@@ -1,0 +1,400 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b1120;
+    color: #e5e7eb;
+    min-height: 100vh;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px 0;
+}
+
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.badge {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid #334155;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+
+.hero p {
+    color: #94a3b8;
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.6;
+}
+
+
+/* PRIVACY */
+
+.privacy-card {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 25px;
+}
+
+
+.privacy-card strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+
+.privacy-card span {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+
+/* ANALYZER */
+
+.analyzer-card,
+.analysis-card,
+.recommendation-card {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+
+.analyzer-card h2,
+.analysis-card h2,
+.recommendation-card h2 {
+    margin-bottom: 8px;
+}
+
+
+.subtitle {
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+
+.password-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+}
+
+
+input {
+    flex: 1;
+    width: 100%;
+    padding: 14px;
+    padding-right: 70px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #020617;
+    color: white;
+    font-size: 15px;
+}
+
+
+button {
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background: #1d4ed8;
+}
+
+
+.toggle-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 9px 12px;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+
+.toggle-button:hover {
+    background: #1e293b;
+}
+
+
+.input-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+
+/* SCORE */
+
+.score-card {
+    text-align: center;
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+    padding: 35px;
+    margin-bottom: 20px;
+}
+
+
+.result-label {
+    color: #94a3b8;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+
+.score {
+    font-size: 64px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+
+.score span {
+    font-size: 20px;
+    color: #64748b;
+}
+
+
+/* SCORE METER */
+
+.score-meter {
+    width: 100%;
+    max-width: 500px;
+    height: 12px;
+    background: #1e293b;
+    border-radius: 20px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+
+.score-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: #22c55e;
+    transition: width 0.5s ease;
+}
+
+
+.classification {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #1e293b;
+    font-weight: bold;
+}
+
+
+.classification.weak {
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+
+.classification.moderate {
+    color: #f59e0b;
+    border: 1px solid #f59e0b;
+}
+
+
+.classification.strong {
+    color: #22c55e;
+    border: 1px solid #22c55e;
+}
+
+
+/* METRICS */
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+
+.metric {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.metric > span {
+    font-size: 25px;
+}
+
+
+.metric small {
+    display: block;
+    color: #94a3b8;
+    margin-bottom: 5px;
+}
+
+
+.metric strong {
+    font-size: 18px;
+}
+
+
+/* SECURITY ANALYSIS */
+
+.checks {
+    margin-top: 20px;
+}
+
+
+.check {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #1e293b;
+}
+
+
+.good {
+    color: #22c55e;
+}
+
+
+.bad {
+    color: #ef4444;
+}
+
+
+.weakness-summary {
+    margin-bottom: 15px;
+    color: #cbd5e1;
+}
+
+
+/* RECOMMENDATIONS */
+
+.recommendation-card ul {
+    margin-top: 15px;
+    padding-left: 22px;
+}
+
+
+.recommendation-card li {
+    margin-bottom: 12px;
+    color: #cbd5e1;
+}
+
+
+/* DISCLAIMER */
+
+.disclaimer {
+    background: #172033;
+    border-radius: 10px;
+    padding: 18px;
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    color: #64748b;
+    padding-top: 30px;
+    font-size: 13px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+
+    .input-row {
+        flex-direction: column;
+    }
+
+
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+
+
+    button {
+        width: 100%;
+    }
+
+
+    .toggle-button {
+        width: auto;
+    }
+
+}
+/* PASSPHRASE GUIDANCE */
+
+.recommendation-card p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
