@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Password Strength Analyzer</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- HERO SECTION -->
+
+        <section class="hero">
+
+            <div class="badge">
+                🛡️ CYBERSECURITY TOOL
+            </div>
+
+            <h1>Password Strength Analyzer</h1>
+
+            <p>
+                Analyze password characteristics, detect common
+                weaknesses, and receive security recommendations.
+            </p>
+
+        </section>
+
+
+        <!-- PRIVACY NOTICE -->
+
+        <section class="privacy-card">
+
+            <strong>🔒 Privacy First</strong>
+
+            <span>
+                Passwords are analyzed locally in memory and are
+                not stored, logged, or transmitted.
+            </span>
+
+        </section>
+
+
+        <!-- ANALYZER -->
+
+        <section class="analyzer-card">
+
+            <h2>Analyze a Password</h2>
+
+            <p class="subtitle">
+                Use a synthetic or demo password for testing.
+            </p>
+
+            <form method="POST">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="input-row">
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter a synthetic password"
+                            maxlength="128"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="toggle-button"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                    <button type="submit">
+                        Analyze
+                    </button>
+
+                </div>
+
+                <div class="input-info">
+
+                    <span>
+                        Characters:
+                        <strong id="characterCount">0</strong>
+                    </span>
+
+                    <span>
+                        Maximum: 128
+                    </span>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- RESULTS -->
+
+        {% if result %}
+
+        <section class="results">
+
+            <!-- SCORE -->
+
+            <div class="score-card">
+
+                <p class="result-label">
+                    SECURITY SCORE
+                </p>
+
+                <div class="score">
+                    {{ result.score }}
+                    <span>/100</span>
+                </div>
+
+                <div class="score-meter">
+
+                    <div
+                        class="score-fill"
+                        style="width: {{ result.score }}%;"
+                    ></div>
+
+                </div>
+
+                <div class="classification
+                    {% if result.score < 40 %}
+                        weak
+                    {% elif result.score < 60 %}
+                        moderate
+                    {% else %}
+                        strong
+                    {% endif %}
+                ">
+
+                    {{ result.classification }}
+
+                </div>
+
+            </div>
+
+
+            <!-- METRICS -->
+
+            <div class="metrics">
+
+                <div class="metric">
+
+                    <span>📏</span>
+
+                    <div>
+
+                        <small>
+                            Length
+                        </small>
+
+                        <strong>
+                            {{ result.length }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <span>🔤</span>
+
+                    <div>
+
+                        <small>
+                            Character Types
+                        </small>
+
+                        <strong>
+                            {{ result.character_types }}/4
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <span>🧮</span>
+
+                    <div>
+
+                        <small>
+                            Entropy Estimate
+                        </small>
+
+                        <strong>
+                            {{ result.entropy }} bits
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY ANALYSIS -->
+
+            <div class="analysis-card">
+
+                <h2>
+                    Security Analysis
+                </h2>
+
+
+                {% set weakness_count = 0 %}
+
+                {% if result.has_repeated_characters %}
+                    {% set weakness_count = weakness_count + 1 %}
+                {% endif %}
+
+                {% if result.has_sequential_pattern %}
+                    {% set weakness_count = weakness_count + 1 %}
+                {% endif %}
+
+                {% if result.has_keyboard_pattern %}
+                    {% set weakness_count = weakness_count + 1 %}
+                {% endif %}
+
+                {% if result.is_common_password %}
+                    {% set weakness_count = weakness_count + 1 %}
+                {% endif %}
+
+
+                <p class="weakness-summary">
+
+                    {% if weakness_count == 0 %}
+
+                        ✅ No major pattern-based weaknesses detected.
+
+                    {% elif weakness_count == 1 %}
+
+                        ⚠️ 1 potential weakness detected.
+
+                    {% else %}
+
+                        ⚠️ {{ weakness_count }}
+                        potential weaknesses detected.
+
+                    {% endif %}
+
+                </p>
+
+
+                <div class="checks">
+
+                    <!-- Repeated characters -->
+
+                    <div class="check">
+
+                        <span>
+                            Repeated Characters
+                        </span>
+
+                        {% if result.has_repeated_characters %}
+
+                            <strong class="bad">
+                                Detected
+                            </strong>
+
+                        {% else %}
+
+                            <strong class="good">
+                                Not Detected
+                            </strong>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Sequential pattern -->
+
+                    <div class="check">
+
+                        <span>
+                            Sequential Pattern
+                        </span>
+
+                        {% if result.has_sequential_pattern %}
+
+                            <strong class="bad">
+                                Detected
+                            </strong>
+
+                        {% else %}
+
+                            <strong class="good">
+                                Not Detected
+                            </strong>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Keyboard pattern -->
+
+                    <div class="check">
+
+                        <span>
+                            Keyboard Pattern
+                        </span>
+
+                        {% if result.has_keyboard_pattern %}
+
+                            <strong class="bad">
+                                Detected
+                            </strong>
+
+                        {% else %}
+
+                            <strong class="good">
+                                Not Detected
+                            </strong>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Common password -->
+
+                    <div class="check">
+
+                        <span>
+                            Common Password
+                        </span>
+
+                        {% if result.is_common_password %}
+
+                            <strong class="bad">
+                                Detected
+                            </strong>
+
+                        {% else %}
+
+                            <strong class="good">
+                                Not Detected
+                            </strong>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECOMMENDATIONS -->
+
+            <div class="recommendation-card">
+
+                <h2>
+                    💡 Security Recommendations
+                </h2>
+
+                <ul>
+
+                    {% for recommendation in result.recommendations %}
+
+                    <li>
+                        {{ recommendation }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+
+            <!-- PASSPHRASE GUIDANCE -->
+
+            <div class="recommendation-card">
+
+                <h2>
+                    🔑 Passphrase Guidance
+                </h2>
+
+                <p>
+                    {{ result.passphrase_guidance }}
+                </p>
+
+            </div>
+
+
+            <!-- DISCLAIMER -->
+
+            <div class="disclaimer">
+
+                <strong>
+                    Educational tool:
+                </strong>
+
+                This analyzer uses heuristic checks and an
+                entropy-style estimate. A score does not guarantee
+                that a password is secure against every attack.
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <p>
+                Password Strength Analyzer
+                · Defensive Cybersecurity Project
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        const characterCount =
+            document.getElementById("characterCount");
+
+
+        togglePassword.addEventListener(
+            "click",
+            function () {
+
+                if (passwordInput.type === "password") {
+
+                    passwordInput.type = "text";
+
+                    togglePassword.textContent = "Hide";
+
+                } else {
+
+                    passwordInput.type = "password";
+
+                    togglePassword.textContent = "Show";
+
+                }
+
+            }
+        );
+
+
+        passwordInput.addEventListener(
+            "input",
+            function () {
+
+                characterCount.textContent =
+                    passwordInput.value.length;
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
